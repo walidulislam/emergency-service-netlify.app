@@ -86,3 +86,7 @@ for (const call of callBtnSelect) {
     historyConteiner.appendChild(div);  
 });
 }
+// History clear button feture... 
+document.getElementById("clear-btn").addEventListener("click", function () {
+  document.getElementById("history-card-parent").innerHTML = "";
+});
