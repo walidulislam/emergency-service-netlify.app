@@ -22,14 +22,12 @@ function setInnerTextHeart(value) {
 }
 // function to get inner text coin Value
 function setInnerTextCoin(value) {
-  const coinElemant = (document.getElementById("coin-count").innerText =
-    value);
+  const coinElemant = (document.getElementById("coin-count").innerText = value);
   return coinElemant;
 }
 // function to get inner text copy Value
 function setInnerTextCopy(value) {
-  const copyElemant = (document.getElementById("copy-count").innerText =
-    value);
+  const copyElemant = (document.getElementById("copy-count").innerText = value);
   return copyElemant;
 }
 
@@ -83,10 +81,25 @@ for (const call of callBtnSelect) {
                 <span class="hind-madurai-font text-[18px] font-normal text-nowrap">${data.date}</span>
             </div>
             `;
-    historyConteiner.appendChild(div);  
-});
+    historyConteiner.appendChild(div);
+  });
 }
-// History clear button feture... 
+// History clear button feture...
 document.getElementById("clear-btn").addEventListener("click", function () {
   document.getElementById("history-card-parent").innerHTML = "";
 });
+// Copy button feture...
+const copyBtnSelect = document.querySelectorAll(".copy-btn");
+for (const copy of copyBtnSelect) {
+  copy.addEventListener("click", function () {
+    const copyNum = getInnerText("copy-count");
+    const copyNumAdd = copyNum + 1;
+
+    const card = copy.parentNode.parentNode;
+    const serviceNumber = card.querySelector(".service-number").innerText;
+    navigator.clipboard.writeText(serviceNumber);
+
+    alert(`📋 ${serviceNumber} Number has been copied to clipboard...`);
+    setInnerTextCopy(copyNumAdd);
+  });
+}
