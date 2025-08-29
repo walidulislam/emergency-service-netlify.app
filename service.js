@@ -22,9 +22,15 @@ function setInnerTextHeart(value) {
 }
 // function to get inner text coin Value
 function setInnerTextCoin(value) {
-  const heartElemant = (document.getElementById("coin-count").innerText =
+  const coinElemant = (document.getElementById("coin-count").innerText =
     value);
-  return heartElemant;
+  return coinElemant;
+}
+// function to get inner text copy Value
+function setInnerTextCopy(value) {
+  const copyElemant = (document.getElementById("copy-count").innerText =
+    value);
+  return copyElemant;
 }
 
 // Heart icon click feture..
@@ -35,4 +41,48 @@ for (const icn of icnSelect) {
     const heartNumAdd = heartNum + 1;
     setInnerTextHeart(heartNumAdd);
   });
+}
+// Call button feture..
+const callBtnSelect = document.querySelectorAll(".call-btn");
+for (const call of callBtnSelect) {
+  call.addEventListener("click", function () {
+    const coinNum = getInnerText("coin-count");
+    const coinNumCount = coinNum - 20;
+    if (coinNumCount < 0) {
+      alert("You don't have enough coins!");
+      return;
+    }
+    if (coinNumCount < 0) {
+      coinNumCount = 0;
+    }
+
+    const card = call.parentNode.parentNode;
+    const serviceName = card.querySelector(".service-name").innerText;
+    const serviceNumber = card.querySelector(".service-number").innerText;
+
+    alert(`📞 Calling ${serviceName} ${serviceNumber}...`);
+
+    setInnerTextCoin(coinNumCount);
+
+    const data = {
+      name: serviceName,
+      num: serviceNumber,
+      date: new Date().toLocaleTimeString(),
+    };
+
+    // History Selection ......
+    serviceData.push(data);
+    const historyConteiner = document.getElementById("history-card-parent");
+    const div = document.createElement("div");
+    div.innerHTML = `
+            <div class="bg-[#FAFAFA] flex justify-between items-center gap-4  p-4 mt-2 rounded-lg ">
+                <div>
+                <h1 class="inter-font text-[18px] font-semibold">${data.name}</h1>
+                <p class="hind-madurai-font text-[18px] font-normal text-[#5C5C5C]">${data.num}</p>
+                </div>
+                <span class="hind-madurai-font text-[18px] font-normal text-nowrap">${data.date}</span>
+            </div>
+            `;
+    historyConteiner.appendChild(div);  
+});
 }
